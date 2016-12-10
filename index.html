@@ -6,37 +6,22 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Websummit 2016</title>
 
-        <link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-        <link href="css/materialize.min.css" rel="stylesheet" media="screen,projection">
-        <link href="css/flag-icon.min.css" rel="stylesheet">
-
-        <!--[if lt IE 9]>
-            <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-            <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-        <![endif]-->
+        <link href="dist/css/app.css" rel="stylesheet">
     </head>
     <body>
-        <div class="container">
-            <div class="row" id="exhibition">
-                <div class="col m4 s2" v-for="startup in responseData.startups">
-                    <div class="card small" v-bind:class="{ 'orange lighten-1': startup.track == 'alpha', 'green lighten-1': startup.track == 'beta', 'blue lighten-1': startup.track == 'start' }">
-                        <div class="card-content">
-                            <span class="card-title">{{ startup.company_name }}</span>
-                            <p><small><country-code></country-code> {{ startup.country }}, {{ startup.city }} | Status: {{ startup.track }}</small></p>
-                            <p>{{ startup.description }}</p>
-                        </div>
-                        <div class="card-action">
-                            <a v-bind:href="startup.website_url" target="_blank" v-bind:class="{ 'white-text': startup.track == 'alpha' }">{{ startup.website_url }}</a>
-                        </div>
+        <div id="app" class="ui vertical stripe segment">
+            <div class="ui container">
+                <div :class="[{'vuetable-wrapper io basic segment': true}, loading]">
+                    <h3 class="ui header">List of Startups</h3>
+                    <vuetable ref="vuetable" api-url="/lisbon-startups.json" :fields="columns"></vuetable>
+                    <div class="vuetable-pagination ui bottom attached segment grid">
+                        <vuetable-pagination-info ref="paginationInfo" :pagination-info-template="paginationInfoTemplate"></vuetable-pagination-info>
+                        <component :is="paginationComponent" ref="pagination" @vuetable-pagination:change-page="onChangePage"></component>
                     </div>
                 </div>
             </div>
         </div>
 
-        <script src="js/jquery-2.2.4.min.js"></script>
-        <script src="js/materialize.min.js"></script>
-        <script src="js/vue.min.js"></script>
-        <script src="js/vue-resource.min.js"></script>
-        <script src="js/app.js"></script>
+        <script src="dist/js/app.bundle.js"></script>
     </body>
 </html>
