@@ -15,8 +15,11 @@ var path = require('path'),
                 {
                     test: /\.js?$/,
                     loader: 'babel?{"presets":["es2015"]}',
-                    exclude: /node_modules/
+                    exclude: /node_modules/,
+                    include: [path.resolve(__dirname, './src')]
                 },
+                { test: /\.vue$/, loader: 'vue-loader' },
+                { test: /\.html$/, loader: 'raw' },
                 {
                     test: /\.(ico)|(jpe?g)|(png)|(gif)$/,
                     loaders: ['file-loader?publicPath=../&name=images/[hash].[ext]', 'image-webpack?optimizationLevel=7&interlaced=false']
@@ -28,9 +31,7 @@ var path = require('path'),
                 { test: /\.eot(\?v=\d+\.\d+\.\d+)?$/, loader: 'file?publicPath=../&name=fonts/[hash].[ext]' },
                 { test: /\.(woff2?)$/, loader:'url?prefix=font/&limit=5000&publicPath=../&name=fonts/[hash].[ext]' },
                 { test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/, loader: 'url?limit=10000&mimetype=application/octet-stream&publicPath=../&name=fonts/[hash].[ext]' },
-                { test: /\.svg(\?v=\d+\.\d+\.\d+)?$/, loader: 'url?limit=10000&mimetype=image/svg+xml&publicPath=../&name=fonts/[hash].[ext]' },
-                { test: /\.html$/, loader: 'raw' },
-                { test: /\.vue$/, loader: 'vue' }
+                { test: /\.svg(\?v=\d+\.\d+\.\d+)?$/, loader: 'url?limit=10000&mimetype=image/svg+xml&publicPath=../&name=fonts/[hash].[ext]' }
             ]
         },
         resolve: {
@@ -38,8 +39,7 @@ var path = require('path'),
             fallback: [path.join(__dirname, './node_modules')],
             alias: {
                 src: path.resolve(__dirname, './src'),
-                components: path.resolve(__dirname, './src/components'),
-                vue: 'vue/dist/vue.js'
+                // vue: 'vue/dist/vue.js'
             }
         },
         resolveLoader: {
