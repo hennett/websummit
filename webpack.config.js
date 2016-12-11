@@ -4,10 +4,10 @@ var path = require('path'),
 
     config = {
         entry: {
-            app: './src/app.js'
+            app: './storage/app/public/app.js'
         },
         output: {
-            path: path.resolve(__dirname, './dist'),
+            path: path.resolve(__dirname, './public'),
             filename: 'js/app.bundle.js'
         },
         module: {
@@ -16,7 +16,7 @@ var path = require('path'),
                     test: /\.js?$/,
                     loader: 'babel?{"presets":["es2015"]}',
                     exclude: /node_modules/,
-                    include: [path.resolve(__dirname, './src')]
+                    include: [path.resolve(__dirname, './storage/app/public')]
                 },
                 { test: /\.vue$/, loader: 'vue-loader' },
                 { test: /\.html$/, loader: 'raw' },
@@ -38,7 +38,7 @@ var path = require('path'),
             extensions: ['', '.js', '.vue'],
             fallback: [path.join(__dirname, './node_modules')],
             alias: {
-                src: path.resolve(__dirname, './src'),
+                src: path.resolve(__dirname, './storage/app/public'),
                 // vue: 'vue/dist/vue.js'
             }
         },
